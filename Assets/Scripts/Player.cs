@@ -81,12 +81,21 @@ public class Player : MonoBehaviour {
 						targetPos += new Vector2(h,v);
 						Destroy(hit.transform.gameObject);
 						break;
+					case "Enemy":
+						break;
 				}
 			}
+			GameManager.Instance.OnPlayerMove();
 			//无论攻击或者移动都需要休息
 			restTimer = 0;
 		}
 
 
+	}
+
+	public void TakeDamage(int lossFood)
+	{
+		GameManager.Instance.ReduceFood(lossFood);
+		animator.SetTrigger("Damage");
 	}
 }
