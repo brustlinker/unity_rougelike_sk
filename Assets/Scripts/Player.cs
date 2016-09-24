@@ -50,6 +50,7 @@ public class Player : MonoBehaviour {
 
 		if(h!=0||v!=0)
 		{
+			GameManager.Instance.ReduceFood(1);
 			//检测
 			collider.enabled = false;
 			RaycastHit2D hit = Physics2D.Linecast(targetPos,targetPos+new Vector2(h,v));
