@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 
 	private Vector2 targetPos=new Vector2(1,1);
 	private Rigidbody2D rigidbody;
+	private BoxCollider2D collider;
+	private Animator animator;
 	public float smoothing = 1;
 	public float restTime = 1;
 	public float restTimer = 0;
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidbody = GetComponent<Rigidbody2D>();
+		collider = GetComponent<BoxCollider2D>();
+		animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -46,8 +50,33 @@ public class Player : MonoBehaviour {
 
 		if(h!=0||v!=0)
 		{
-			targetPos += new Vector2(h,v);
+			//检测
+			collider.enabled = false;
+			RaycastHit2D hit = Physics2D.Linecast(targetPos,targetPos+new Vector2(h,v));
+			collider.enabled = true;
+
+			//没有碰撞到东西
+			if(hit.transform==null)
+			{
+				
+				targetPos += new Vector2(h,v);
+			}
+			else
+			{
+				switch(hit.collider.tag)
+				{
+					case "OutWall":
+						break;
+					case "Wall":
+						animator.SetTrigger("Attack");
+						hit.collider.SendMessage("TakeDamage");
+						break;
+				}
+			}
+			//无论攻击或者移动都需要休息
 			restTimer = 0;
 		}
+
+
 	}
 }
