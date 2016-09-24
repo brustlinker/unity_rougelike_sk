@@ -4,10 +4,6 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 
-
-	private int posx = 1;
-	private int posy = 1;
-
 	private const string xAxis="Horizontal";
 	private const string yAxis="Vertical";
 
@@ -19,6 +15,16 @@ public class Player : MonoBehaviour {
 	public float smoothing = 1;
 	public float restTime = 1;
 	public float restTimer = 0;
+
+
+	public AudioClip chop1Audio;
+	public AudioClip chop2Audio;
+	public AudioClip step1Audio;
+	public AudioClip step2Audio;
+	public AudioClip soda1Audio;
+	public AudioClip soda2Audio;
+	public AudioClip food1Audio;
+	public AudioClip food2Audio;
 
 	// Use this for initialization
 	void Start () {
@@ -67,6 +73,7 @@ public class Player : MonoBehaviour {
 			{
 				
 				targetPos += new Vector2(h,v);
+				AudioManager.Instance.RandomPlay(step1Audio,step2Audio);
 			}
 			else
 			{
@@ -77,16 +84,21 @@ public class Player : MonoBehaviour {
 					case "Wall":
 						animator.SetTrigger("Attack");
 						hit.collider.SendMessage("TakeDamage");
+						AudioManager.Instance.RandomPlay(chop1Audio,chop2Audio);
 						break;
 					case "Food":
 						GameManager.Instance.AddFood(10);
 						targetPos += new Vector2(h,v);
 						Destroy(hit.transform.gameObject);
+						AudioManager.Instance.RandomPlay(step1Audio,step2Audio);
+						AudioManager.Instance.RandomPlay(food1Audio,food2Audio);
 						break;
 					case "Soda":
 						GameManager.Instance.AddFood(20);
 						targetPos += new Vector2(h,v);
 						Destroy(hit.transform.gameObject);
+						AudioManager.Instance.RandomPlay(step1Audio,step2Audio);
+						AudioManager.Instance.RandomPlay(soda1Audio,soda2Audio);
 						break;
 					case "Enemy":
 						break;

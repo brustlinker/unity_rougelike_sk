@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour {
 
 	public int lossFood = 10;
 
+
+	public AudioClip attackAudio;
+
 	void Start()
 	{
 		player=GameObject.FindGameObjectWithTag("Player").transform;
@@ -41,6 +44,7 @@ public class Enemy : MonoBehaviour {
 		{
 			animator.SetTrigger("Attack");
 			player.SendMessage("TakeDamage",lossFood);
+			AudioManager.Instance.RandomPlay(attackAudio);
 		}
 		//追击
 		else

@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour {
 	private Text dayText;
 	private Player player;
 	private MapManager mapManager;
+
+
+	public AudioClip dieClip; 
+
 	public bool isEnd = false;//是否到达终点
 
 	void Awake()
@@ -87,6 +91,8 @@ public class GameManager : MonoBehaviour {
 		if(food<0)
 		{
 			failText.enabled = true;
+			AudioManager.Instance.RandomPlay(dieClip);
+			AudioManager.Instance.StopBgMusic();
 		}
 	}
 
