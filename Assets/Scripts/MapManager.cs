@@ -22,20 +22,10 @@ public class MapManager : MonoBehaviour {
 
 	private GameManager gameManager;
 
-	// Use this for initialization
-	void Awake () 
+
+	public void InitMap()
 	{
 		gameManager = this.GetComponent<GameManager> ();
-		InitMap ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	void InitMap()
-	{
 		mapHolder = new GameObject ("Map").transform; 
 		for (int x = 0; x < cols; x++) 
 		{

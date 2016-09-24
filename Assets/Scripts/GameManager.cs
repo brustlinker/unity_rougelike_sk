@@ -30,11 +30,16 @@ public class GameManager : MonoBehaviour {
 	{
 		_instance = this;
 		InitGame();
-		failText=GameObject.Find("FailText").GetComponent<Text>();
+		DontDestroyOnLoad(gameObject);
 	}
 
 	void InitGame()
 	{
+		//初始化地图
+		mapManager=GetComponent<MapManager>();
+		mapManager.InitMap();
+
+		//初始化UI
 		foodText=GameObject.Find("FoodText").GetComponent<Text>();
 		UpdateFoodText(0);
 		failText = GameObject.Find("FailText").GetComponent<Text>();
@@ -42,6 +47,9 @@ public class GameManager : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		mapManager = GetComponent<MapManager>();
 
+		//初始化参数
+		isEnd=false;
+		enemyList.Clear();
 	}
 
 	void UpdateFoodText(int foodChange)
@@ -104,8 +112,15 @@ public class GameManager : MonoBehaviour {
 		{
 			isEnd = true;
 
-			//加载下一个管卡
+			//加载下一个关卡
+			Application.LoadLevel(Application.loadedLevel);
 		}
 
+	}
+
+	void OnLevelWasLoaded(int sceneLevel)
+	{
+		level++;
+		InitGame();//初始化游戏
 	}
 }
