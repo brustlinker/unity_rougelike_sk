@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	private const string yAxis="Vertical";
 
 
-	private Vector2 targetPos=new Vector2(1,1);
+	[HideInInspector]public Vector2 targetPos=new Vector2(1,1);
 	private Rigidbody2D rigidbody;
 	private BoxCollider2D collider;
 	private Animator animator;
@@ -32,6 +32,12 @@ public class Player : MonoBehaviour {
 
 
 		rigidbody.MovePosition(Vector2.Lerp(transform.position,targetPos,smoothing*Time.deltaTime));
+
+
+		if(GameManager.Instance.food<0||GameManager.Instance.isEnd==true)
+		{
+			return ;
+		}
 
 
 		restTimer+=Time.deltaTime;
@@ -90,6 +96,9 @@ public class Player : MonoBehaviour {
 			//无论攻击或者移动都需要休息
 			restTimer = 0;
 		}
+
+
+
 
 
 	}
