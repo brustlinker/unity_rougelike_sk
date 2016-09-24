@@ -71,6 +71,16 @@ public class Player : MonoBehaviour {
 						animator.SetTrigger("Attack");
 						hit.collider.SendMessage("TakeDamage");
 						break;
+					case "Food":
+						GameManager.Instance.AddFood(10);
+						targetPos += new Vector2(h,v);
+						Destroy(hit.transform.gameObject);
+						break;
+					case "Soda":
+						GameManager.Instance.AddFood(20);
+						targetPos += new Vector2(h,v);
+						Destroy(hit.transform.gameObject);
+						break;
 				}
 			}
 			//无论攻击或者移动都需要休息

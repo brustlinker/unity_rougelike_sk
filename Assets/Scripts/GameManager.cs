@@ -3,15 +3,31 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public int level = 1;//当前关卡
-
-	// Use this for initialization
-	void Start () {
-	
+	private static GameManager _instance;
+	public static GameManager Instance
+	{
+		get
+		{
+			return _instance;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public int level = 1;//当前关卡
+	public int food  = 100;
+
+
+	void Awake()
+	{
+		_instance = this;
+	}
+
+	public void ReduceFood(int count)
+	{
+		food-=count;
+	}
+
+	public void AddFood(int count)
+	{
+		food+=count;
 	}
 }
