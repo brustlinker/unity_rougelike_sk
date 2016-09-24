@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 
 	private Text foodText;
 	private Text failText;
+	private Image dayImage;
+	private Text dayText;
 	private Player player;
 	private MapManager mapManager;
 	public bool isEnd = false;//是否到达终点
@@ -45,7 +47,11 @@ public class GameManager : MonoBehaviour {
 		failText = GameObject.Find("FailText").GetComponent<Text>();
 		failText.enabled = false;
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		mapManager = GetComponent<MapManager>();
+		dayImage=GameObject.Find("DayImage").GetComponent<Image>();
+		dayText=GameObject.Find("DayText").GetComponent<Text>();
+		dayText.text="Day"+level;
+
+		Invoke("HideBlack",1);
 
 		//初始化参数
 		isEnd=false;
@@ -122,5 +128,10 @@ public class GameManager : MonoBehaviour {
 	{
 		level++;
 		InitGame();//初始化游戏
+	}
+
+	void HideBlack()
+	{
+		dayImage.gameObject.SetActive(false);
 	}
 }
